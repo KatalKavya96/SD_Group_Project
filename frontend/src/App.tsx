@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import AppRoutes from "./presentation/routes/AppRoutes";
+import { AuthProvider } from "./presentation/context/AuthContext";
 
-const App = () => {
-  return (
-    <div>Hello</div>
-  )
-}
-
-export default App
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
+  </React.StrictMode>
+);

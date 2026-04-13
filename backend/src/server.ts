@@ -11,7 +11,7 @@ const startServer = () => {
       console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
       console.log(`📡 Environment: ${config.nodeEnv}`);
       console.log(`🌐 Server running on port: ${config.port}`);
-      console.log(`🔗 Health check: http://0.0.0.0:${config.port}/api/health`);
+      console.log(`🔗 Health check: http://localhost:${config.port}/api/health`);
       console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     });
   } catch (error) {

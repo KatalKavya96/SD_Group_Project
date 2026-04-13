@@ -1,114 +1,18 @@
 {
-  // TypeScript compiler configuration file
-  // Docs: https://aka.ms/tsconfig
   "compilerOptions": {
-    // -------------------------
-    // File / Build Output Setup
-    // -------------------------
-
-    // Tells TypeScript that all source files are inside the "src" folder
     "rootDir": "src",
-
-    // Compiled JavaScript files will be emitted into the "dist" folder
     "outDir": "dist",
-
-    // -------------------------
-    // Module / Runtime Settings
-    // -------------------------
-
-    // Uses Node.js modern ESM/CommonJS compatible module behavior
-    // Best when working with newer Node.js projects
     "module": "nodenext",
-
-    // Resolves imports using NodeNext rules
-    // Needed when module is also set to "nodenext"
     "moduleResolution": "nodenext",
-
-    // Target latest JavaScript features
-    // TypeScript will emit modern JS syntax
     "target": "esnext",
-    "types": ["node",""],
-    // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
-    // and npm install -D @types/node
-    
-
-    // Includes Node.js type definitions
-    // Gives support for globals like process, __dirname alternatives, fs, path, etc.
-
-
-    // -------------------------
-    // Output / Debugging
-    // -------------------------
-
-    // Generates .map files so debugging points back to original TypeScript code
+    "types": ["node"],
     "sourceMap": true,
-
-    // These are currently disabled:
-    // "declaration": true,      // Would generate .d.ts files
-    // "declarationMap": true,   // Would generate source maps for declaration files
-
-    // -------------------------
-    // Interop with CommonJS / JS
-    // -------------------------
-
-    // Enables better compatibility when importing CommonJS modules
     "esModuleInterop": true,
-
-    // Allows default imports even if the module does not truly export default
     "allowSyntheticDefaultImports": true,
-
-    // -------------------------
-    // Type Safety
-    // -------------------------
-
-    // Makes optional property types stricter
-    // Example: { a?: string } is treated more precisely
     "exactOptionalPropertyTypes": true,
-
-    // This is disabled:
-    // "noUncheckedIndexedAccess": true,
-    // If enabled, array/object index access would include undefined in the type
-
-    // -------------------------
-    // Code Quality / Style Checks
-    // -------------------------
-
-    // These are available but currently disabled:
-    // "noImplicitReturns": true,              // Ensures every code path returns a value
-    // "noImplicitOverride": true,             // Forces override keyword in subclasses
-    // "noUnusedLocals": true,                 // Error on unused local variables
-    // "noUnusedParameters": true,             // Error on unused function parameters
-    // "noFallthroughCasesInSwitch": true,     // Prevents accidental switch fallthrough
-    // "noPropertyAccessFromIndexSignature": true, // Safer property access rules
-
-    // -------------------------
-    // Recommended Strict Settings
-    // -------------------------
-
-    // Enables all strict type-checking options
     "strict": true,
-
-    // JSX transform for React 17+ / modern React apps
-    "jsx": "react-jsx",
-
-    // Keeps import/export syntax exactly as written
-    // Useful for modern ESM correctness
-    "verbatimModuleSyntax": true,
-
-    // Ensures each file can be safely transpiled independently
-    // Important for tools like Babel, Vite, SWC, etc.
-    "isolatedModules": true,
-
-    // Warns on side-effect-only imports that TypeScript cannot verify well
-    "noUncheckedSideEffectImports": true,
-
-    // Forces TypeScript to treat files as modules more aggressively
-    "moduleDetection": "force",
-
-    // Skips type checking of declaration files in node_modules
-    // Speeds up compilation
     "skipLibCheck": true
-  }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "vitest.config.ts", "**/*.test.ts", "**/*.spec.ts"]
 }
