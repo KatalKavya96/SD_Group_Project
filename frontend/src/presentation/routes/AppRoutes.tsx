@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import HomePage from "../pages/HomePage";
+import ProfilePage from "../pages/ProfilePage";
 import ProtectedRoute from "../routes/ProtectedRoute";
 import { useAuth } from "../context/AuthContext";
 
@@ -20,7 +21,7 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
     return <Navigate to="/home" replace />;
   }
 
-  return children;
+  return <>{children}</>;
 }
 
 export default function AppRoutes() {
@@ -52,6 +53,15 @@ export default function AppRoutes() {
           element={
             <ProtectedRoute>
               <HomePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />

@@ -29,6 +29,14 @@ type ChangePasswordPayload = {
   newPassword: string;
 };
 
+type UpdateProfilePayload = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phoneNumber?: string;
+  address?: string;
+};
+
 export class AuthService {
   async register(formData: FormData): Promise<User> {
     const response = await apiClient.post<ApiResponse<RawUser>>(
@@ -59,5 +67,14 @@ export class AuthService {
 
   async changePassword(payload: ChangePasswordPayload): Promise<void> {
     await apiClient.post<ApiResponse<null>>("/auth/change-password", payload);
+  }
+
+  async updateProfile(payload: UpdateProfilePayload): Promise<User> {
+    const response = await apiClient.post<ApiResponse<RawUser>>(
+      "/auth/update-profile",
+      payload
+    );
+
+    return UserFactory.create(response.data);
   }
 }
