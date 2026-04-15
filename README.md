@@ -1,10 +1,10 @@
-# ⚡ EV Charging System
+#  EV Charging System
 
 A full-stack EV (Electric Vehicle) charging station management system for booking, managing, and monitoring EV charging stations.
 
 ---
 
-## 📖 Overview
+##  Overview
 
 The **EV Charging System** is a comprehensive, full-stack platform designed to streamline the management of electric vehicle charging infrastructure. It bridges the gap between station owners and EV users by providing a centralized dashboard for real-time station monitoring, slot booking, and secure payment processing.
 
@@ -87,6 +87,12 @@ SD_Group_Project/
 └── diagrams/             # UML & use-case diagrams
 ```
 
+---
+## 📚 Documentation
+
+- Environment Configuration (dotenv setup & validation) → [Link to Env Config Doc](/docs/backend/env-config.md)
+- Database Client (Prisma Singleton Pattern) → [Link to Database Client Doc](/docs/backend/database-client.md)
+  
 ---
 
 ## Prerequisites
