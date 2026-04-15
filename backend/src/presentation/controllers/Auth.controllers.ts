@@ -99,7 +99,7 @@ export class AuthController {
 
   logout = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const user = (req as any).user;
+      const user = req.user;
       if (!user) {
         throw new AppError("Unauthorized", 401);
       }
@@ -116,7 +116,7 @@ export class AuthController {
 
   getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const user = (req as any).user;
+      const user = req.user;
       if (!user) {
         throw new AppError("Unauthorized", 401);
       }
@@ -140,7 +140,7 @@ export class AuthController {
     }
 
     try {
-      const user = (req as any).user;
+      const user = req.user;
       // console.log("Authenticated user for password change:", user);
       if (!user) {
         throw new AppError("Unauthorized", 401);
@@ -154,5 +154,6 @@ export class AuthController {
     } catch (error) {
       next(error);
     }
-  }
+  };
+  
 }

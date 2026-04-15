@@ -71,10 +71,10 @@ export class AuthService {
   }> {
     try {
       const accessToken = jwt.sign({ userId }, this.getJwtSecret(), {
-        expiresIn: config.jwt.accessTokenExpiry as any,
+        expiresIn: config.jwt.accessTokenExpiry,
       });
       const refreshToken = jwt.sign({ userId }, this.getJwtSecret(), {
-        expiresIn: config.jwt.refreshTokenExpiry as any,
+        expiresIn: config.jwt.refreshTokenExpiry,
       });
       const user = await this.userRepository.update(userId, { refreshToken });
 

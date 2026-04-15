@@ -26,7 +26,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
       throw new AppError("Unauthorized", 401);
     }
 
-    (req as any).user = user;
+    req.user = user;
 
     next();
   } catch (error) {

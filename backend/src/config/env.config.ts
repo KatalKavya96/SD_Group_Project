@@ -1,16 +1,17 @@
 import dotenv from "dotenv";
-import type { SignOptions } from "jsonwebtoken";
+import type { Config } from "../shared/types/config/index.js";
+import {StringValue} from "ms";
 
 // Load environment variables
 dotenv.config();
 
-export const config = {
+export const config: Config = {
   // Server
   port: parseInt(process.env.PORT || "8000", 10),
   nodeEnv: process.env.NODE_ENV || "development",
 
   // Database
-  databaseUrl: process.env.DATABASE_URL,
+  databaseUrl: process.env.DATABASE_URL!,
 
   // CORS
   cors: {
@@ -19,16 +20,16 @@ export const config = {
 
   // Cloudinary
   cloudinary: {
-    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-    apiKey: process.env.CLOUDINARY_API_KEY,
-    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME!,
+    apiKey: process.env.CLOUDINARY_API_KEY!,
+    apiSecret: process.env.CLOUDINARY_API_SECRET!,
   },
 
   // JWT
   jwt: {
-      secret: process.env.JWT_SECRET as string,
-      accessTokenExpiry: (process.env.ACCESS_TOKEN_EXPIRY || "15m" ) as SignOptions['expiresIn'],
-      refreshTokenExpiry: (process.env.REFRESH_TOKEN_EXPIRY || "7d") as SignOptions['expiresIn'],
+      secret: process.env.JWT_SECRET!,
+      accessTokenExpiry: (process.env.ACCESS_TOKEN_EXPIRY as StringValue) || "15m",
+      refreshTokenExpiry: (process.env.REFRESH_TOKEN_EXPIRY as StringValue) || "7d",
   }
 };
 
