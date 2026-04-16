@@ -1,6 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 import { AuthService } from "../../application/services/Auth.service.js";
-import type { RegisterUserdto, UpdateUserdto } from "../../application/dtos/User.dto.js";
+import type {
+  RegisterUserdto,
+  UpdateUserdto,
+} from "../../application/dtos/User.dto.js";
 import { AppError } from "../../shared/error/AppError.js";
 import { AppResponse } from "../../shared/response/AppResponse.js";
 
@@ -66,8 +69,12 @@ export class AuthController {
     }
   };
 
-  login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const {email, phoneNumber, password} = req.body;
+  login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    const { email, phoneNumber, password } = req.body;
 
     if (!email?.trim() && !phoneNumber?.trim()) {
       throw new AppError("Either email or phone number must be provided");
@@ -78,8 +85,8 @@ export class AuthController {
     const loginUserDto = {
       email,
       phoneNumber,
-      password
-    }
+      password,
+    };
 
     try {
       const result = await this.authService.login(loginUserDto);
@@ -88,16 +95,17 @@ export class AuthController {
         .status(200)
         .cookie("accessToken", result.tokens.accessToken, { httpOnly: true })
         .cookie("refreshToken", result.tokens.refreshToken, { httpOnly: true })
-        .json(
-          new AppResponse(200, result.user, "User logged in successfully"),
-        );
+        .json(new AppResponse(200, result.user, "User logged in successfully"));
     } catch (error) {
       next(error);
     }
-
   };
 
-  logout = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  logout = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       const user = req.user;
       if (!user) {
@@ -114,7 +122,11 @@ export class AuthController {
     }
   };
 
-  getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  getMe = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       const user = req.user;
       if (!user) {
@@ -128,7 +140,11 @@ export class AuthController {
     }
   };
 
-  changePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  changePassword = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     const { currentPassword, newPassword } = req.body;
 
     if (!currentPassword || currentPassword.trim().length < 6) {
@@ -136,7 +152,9 @@ export class AuthController {
     } else if (!newPassword || newPassword.trim().length < 6) {
       throw new AppError("New password must be at least 6 characters long");
     } else if (currentPassword === newPassword) {
-      throw new AppError("New password must be different from current password");
+      throw new AppError(
+        "New password must be different from current password",
+      );
     }
 
     try {
@@ -150,9 +168,47 @@ export class AuthController {
         .status(200)
         .clearCookie("accessToken")
         .clearCookie("refreshToken")
-        .json(new AppResponse(200, null, "Password changed successfully, Please Login again"));
+        .json(
+          new AppResponse(
+            200,
+            null,
+            "Password changed successfully, Please Login again",
+          ),
+        );
     } catch (error) {
       next(error);
     }
   };
+
+  // refreshTokens = async (
+  //   req: Request,
+  //   res: Response,
+  //   next: NextFunction,
+  // ): Promise<void> => {
+  //   const incomingToken = req.cookies.refreshToken || req.body.refreshToken;
+
+  //   if (!incomingToken) {
+  //     throw new AppError("Unauthorized Request.", 401);
+  //   }
+
+  //   try {
+  //     const result = await this.authService.refreshTokens(incomingToken);
+
+  //     res
+  //     .status(200)
+  //     .cookie("accessToken", result.tokens.accessToken, { httpOnly: true })
+  //     .cookie("refreshToken", result.tokens.refreshToken, { httpOnly: true })
+  //     .json(
+  //       new AppResponse(
+  //         200,
+  //         {
+  //           user: result.user
+  //         },
+  //         "Tokens Refreshed Successfully"
+  //       )
+  //     )
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // };
 }

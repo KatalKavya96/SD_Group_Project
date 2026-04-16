@@ -80,7 +80,8 @@ export class UserRepository implements IUserRepository {
       refreshToken: string;
     },
   ): Promise<UserEntity> {
-    const user = await this.prisma.user.create({
+    const user = await this.prisma.$transaction(async (prisma) => {
+    const newUser = await prisma.user.create({
       data: {
         user_id: crypto.randomUUID(),
         first_name: data.first_name,
@@ -95,7 +96,9 @@ export class UserRepository implements IUserRepository {
         updatedAt: new Date(),
       },
     });
-    await this.assignRole(user.user_id, Role.CUSTOMER); // Assign default role
+    await this.assignRole(newUser.user_id, Role.CUSTOMER); // Assign default role
+    return newUser;
+  });
     return new UserEntity(
       user.user_id,
       user.first_name,
