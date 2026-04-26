@@ -1,6 +1,5 @@
 import { useState } from "react";
-import {
-  LockKeyhole,
+import { LockKeyhole,
   Mail,
   MapPin,
   Phone,
