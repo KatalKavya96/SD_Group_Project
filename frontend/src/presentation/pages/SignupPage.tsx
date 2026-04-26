@@ -36,10 +36,10 @@ export default function SignupPage() {
     const govtIdFile = formData.get("govt_id");
 
     const values = {
-      firstName: String(formData.get("firstName") || ""),
-      lastName: String(formData.get("lastName") || ""),
+      first_name: String(formData.get("first_name") || ""),
+      last_name: String(formData.get("last_name") || ""),
       email: String(formData.get("email") || ""),
-      phoneNumber: String(formData.get("phoneNumber") || ""),
+      phone_number: String(formData.get("phone_number") || ""),
       address: String(formData.get("address") || ""),
       password: String(formData.get("password") || ""),
       govt_id:
@@ -53,9 +53,9 @@ export default function SignupPage() {
     if (!parsed.success) {
       const errors = parsed.error.flatten().fieldErrors;
       setFieldErrors({
-        firstName: errors.firstName?.[0],
+        firstName: errors.first_name?.[0],
         email: errors.email?.[0],
-        phoneNumber: errors.phoneNumber?.[0],
+        phoneNumber: errors.phone_number?.[0],
         password: errors.password?.[0],
         govt_id: errors.govt_id?.[0],
       });
@@ -103,7 +103,7 @@ export default function SignupPage() {
             <form onSubmit={handleSubmit} className="space-y-3.5">
               <div className="relative">
                 <input
-                  name="firstName"
+                  name="first_name"
                   placeholder="First Name"
                   className="text-sm h-10 w-full rounded-xl border border-slate-400/15 bg-slate-950/95 px-4 text-white outline-none placeholder:text-slate-400 focus:border-blue-400/70 focus:ring-4 focus:ring-blue-500/10"
                 />
@@ -114,7 +114,7 @@ export default function SignupPage() {
 
               <div className="relative">
                 <input
-                  name="lastName"
+                  name="last_name"
                   placeholder="Last Name"
                   className="text-sm h-10 w-full rounded-xl border border-slate-400/15 bg-slate-950/95 px-4 text-white outline-none placeholder:text-slate-400 focus:border-blue-400/70 focus:ring-4 focus:ring-blue-500/10"
                 />
@@ -134,7 +134,7 @@ export default function SignupPage() {
 
               <div className="relative">
                 <input
-                  name="phoneNumber"
+                  name="phone_number"
                   placeholder="Phone Number"
                   className="text-sm h-10 w-full rounded-xl border border-slate-400/15 bg-slate-950/95 px-4 text-white outline-none placeholder:text-slate-400 focus:border-blue-400/70 focus:ring-4 focus:ring-blue-500/10"
                 />

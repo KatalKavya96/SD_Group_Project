@@ -4,8 +4,8 @@ const phoneRegex = /^[0-9]{10,15}$/;
 
 export const signupSchema = z
   .object({
-    firstName: z.string().trim().min(1, "First name is required"),
-    lastName: z.string().trim().optional(),
+    first_name: z.string().trim().min(1, "First name is required"),
+    last_name: z.string().trim().optional(),
     email: z
       .string()
       .trim()
@@ -13,7 +13,7 @@ export const signupSchema = z
       .refine((value) => !value || z.string().email().safeParse(value).success, {
         message: "Enter a valid email address",
       }),
-    phoneNumber: z
+    phone_number: z
       .string()
       .trim()
       .optional()
@@ -26,7 +26,7 @@ export const signupSchema = z
       .min(6, "Password must be at least 6 characters long"),
     govt_id: z.instanceof(File, { message: "Identity proof is required" }),
   })
-  .refine((data) => !!data.email || !!data.phoneNumber, {
+  .refine((data) => !!data.email || !!data.phone_number, {
     message: "Either email or phone number is required",
     path: ["email"],
   });

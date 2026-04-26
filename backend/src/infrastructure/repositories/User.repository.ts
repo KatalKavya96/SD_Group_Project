@@ -88,24 +88,24 @@ export class UserRepository implements IUserRepository {
     },
   ): Promise<UserEntity> {
     const user = await this.prisma.$transaction(async (prisma) => {
-    const newUser = await prisma.user.create({
-      data: {
-        user_id: crypto.randomUUID(),
-        first_name: data.first_name,
-        last_name: data.last_name ?? null,
-        email: data.email ?? null,
-        password: data.password,
-        phone_number: data.phone_number ?? null,
-        address: data.address ?? null,
-        govt_id: data.govt_id,
-        refreshToken: data.refreshToken,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+      const newUser = await prisma.user.create({
+        data: {
+          user_id: crypto.randomUUID(),
+          first_name: data.first_name,
+          last_name: data.last_name ?? null,
+          email: data.email ?? null,
+          password: data.password,
+          phone_number: data.phone_number ?? null,
+          address: data.address ?? null,
+          govt_id: data.govt_id,
+          refreshToken: data.refreshToken,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      });
+      await this.assignRole(newUser.user_id, Role.CUSTOMER, prisma); // Assign default role
+      return newUser;
     });
-    await this.assignRole(newUser.user_id, Role.CUSTOMER); // Assign default role
-    return newUser;
-  });
     return new UserEntity(
       user.user_id,
       user.first_name,
@@ -292,12 +292,12 @@ export class UserRepository implements IUserRepository {
   }
 
   async getUserRole(user_id: string, tx?: DBTransactionClient): Promise<Role[]> {
-      const client = tx || this.prisma;
-      const userRoles = await client.userRole.findMany({
-        where: {
-          user_id
-        }
-      })
-      return userRoles.map((userRole: { role: Role }) => userRole.role)
+    const client = tx || this.prisma;
+    const userRoles = await client.userRole.findMany({
+      where: {
+        user_id
+      }
+    })
+    return userRoles.map((userRole: { role: Role }) => userRole.role)
   }
 }
