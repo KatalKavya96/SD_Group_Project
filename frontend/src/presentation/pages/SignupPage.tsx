@@ -64,7 +64,17 @@ export default function SignupPage() {
     }
 
     try {
-      const user = await authService.register(formData);
+      // Remap camelCase form fields to snake_case keys the backend expects
+      const apiFormData = new FormData();
+      apiFormData.append("first_name", values.firstName);
+      if (values.lastName) apiFormData.append("last_name", values.lastName);
+      apiFormData.append("email", values.email);
+      apiFormData.append("phone_number", values.phoneNumber);
+      if (values.address) apiFormData.append("address", values.address);
+      apiFormData.append("password", values.password);
+      if (govtIdFile instanceof File) apiFormData.append("govt_id", govtIdFile);
+
+      const user = await authService.register(apiFormData);
       setUser(user);
       navigate("/home", { replace: true });
     } catch (err) {
