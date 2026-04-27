@@ -2,6 +2,11 @@
 
 A full-stack EV (Electric Vehicle) charging station management system for booking, managing, and monitoring EV charging stations.
 
+## Project Report
+
+A detailed report covering system architecture, design principles, UML diagrams, and implementation details.
+
+[View Detailed Documentation](https://drive.google.com/file/d/1RpujDBH-fWxsgi9XIndI-b3lVQbpH1Fj/view?usp=drive_link)
 ---
 
 ##  Overview
